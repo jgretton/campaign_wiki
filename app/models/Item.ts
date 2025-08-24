@@ -9,4 +9,4 @@ const ItemSchema = new Schema<Item>({
 	weight: { type: Number, required: false },
 });
 
-export default mongoose.model<Item>("Item", ItemSchema);
+export default mongoose.models.Item || mongoose.model<Item>("Item", ItemSchema);
