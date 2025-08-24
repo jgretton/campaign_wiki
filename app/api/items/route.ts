@@ -1,5 +1,5 @@
 import connectDB from "@/app/lib/mongodb";
-import Items from "@/app/models/Items";
+import Items from "@/app/models/Item";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -8,8 +8,10 @@ export async function GET() {
 	try {
 		const items = await Items.find({});
 		return NextResponse.json(items);
-	} catch (err: any) {
-		return NextResponse.json({ error: err.message });
+	} catch (err) {
+		return NextResponse.json({ 
+			error: err instanceof Error ? err.message : "An unknown error occurred" 
+		});
 	}
 
 	// return new Response(
