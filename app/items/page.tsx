@@ -1,7 +1,16 @@
-export default function ItemsPage() {
+import ItemList from "../components/ItemList";
+import PageLayout from "../components/layouts/PageLayout";
+
+export default async function ItemsPage() {
+	const data = await fetch(`${process.env.APP_URL}/api/items`);
+	const items = await data.json();
+
 	return (
-		<div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-			<h1>Items</h1>
-		</div>
+		<PageLayout
+			title="Items"
+			description="Listed here are all the items added to the Veiled Realm campaign."
+		>
+			<ItemList items={items} />
+		</PageLayout>
 	);
 }

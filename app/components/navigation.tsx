@@ -8,7 +8,7 @@ const Links: Link[] = [
 
 export default function Navigation() {
 	return (
-		<nav className="w-auto h-screen flex flex-col gap-3 items-center justify-center">
+		<nav className="w-full h-screen flex flex-col gap-3 items-center justify-center">
 			<Link href="/" className="font-semibold text-lg">
 				The Veiled Realm
 			</Link>

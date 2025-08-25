@@ -15,11 +15,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={` antialiased flex`}>
-				<div className=" p-8">
+			<body className={` antialiased grid grid-cols-[auto_1fr]`}>
+				<div className=" p-8 sticky top-0 h-screen">
 					<Navigation />
 				</div>
-				{children}
+				<div className="overflow-y-scroll size-full">{children}</div>
 			</body>
 		</html>
 	);

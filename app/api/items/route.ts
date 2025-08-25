@@ -13,11 +13,4 @@ export async function GET() {
 			error: err instanceof Error ? err.message : "An unknown error occurred",
 		});
 	}
-
-	// return new Response(
-	// 	JSON.stringify({ result: `You searched for: ${query}` }),
-	// 	{
-	// 		headers: { "Content-Type": "application/json" },
-	// 	}
-	// );
 }
