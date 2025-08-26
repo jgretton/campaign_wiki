@@ -15,8 +15,8 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={` antialiased grid grid-cols-[auto_1fr]`}>
-				<div className=" p-8 sticky top-0 h-screen">
+			<body className={` antialiased grid md:grid-cols-[auto_1fr]`}>
+				<div className=" p-8 md:sticky top-0 md:h-screen">
 					<Navigation />
 				</div>
 				<div className="overflow-y-scroll size-full">{children}</div>
