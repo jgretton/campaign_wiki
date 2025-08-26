@@ -1,7 +1,6 @@
 "use client";
 
-export default function Error({ error }: { error: Error }) {
-	console.log(error);
+export function Error({ error }: { error: Error }) {
 	return (
 		<div className="font-sans min-h-screen items-center justify-center flex flex-col gap-3 p-8 pb-20 sm:p-20">
 			<h1 className="font-medium text-3xl">Something went wrong!</h1>

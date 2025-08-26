@@ -10,7 +10,7 @@ export default function PageLayout({
 	description,
 }: PageLayoutProps) {
 	return (
-		<div className="font-sans min-h-screen p-8 pb-20 sm:p-20">
+		<div className="font-sans min-h-screen p-8 pb-20 md:p-20">
 			<h1 className="font-medium text-3xl">{title}</h1>
 			<p className="mt-2 font-light">{description}</p>
 
