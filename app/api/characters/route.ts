@@ -1,11 +1,9 @@
 import connectDB from "@/app/lib/mongodb";
 import Character from "@/app/models/Character";
-import { Character as CharacterType } from "@/app/types/mongoose";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-	const searchParams = request.nextUrl.searchParams;
-	const view = searchParams.get("view");
+	const view = await request.nextUrl.searchParams.get("view");
 	await connectDB();
 
 	try {
