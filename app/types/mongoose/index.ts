@@ -1,5 +1,5 @@
-import { Document } from "mongoose";
-
+import { Document, Types } from "mongoose";
+// Items
 export interface Item extends Document {
 	name: string;
 	description: string;
@@ -14,6 +14,7 @@ export enum ITEM_TYPE {
 	Weapon = "Weapon",
 }
 
+//Characters
 export interface Character extends Document {
 	public: {
 		name: string;
@@ -81,4 +82,21 @@ export enum STATUS {
 	Met = "met",
 	Heard_About = "heard_about",
 	Unknown = "unknown",
+}
+
+//Locations
+export interface Location extends Document {
+	name: string;
+	description: string;
+	characters: Types.ObjectId[];
+	buildings: Building[];
+	status: "visited" | "heard_about";
+	additional_notes: Additional_Notes[];
+	draft: boolean;
+}
+
+export interface Building {
+	name: string;
+	description: string;
+	characters?: string[];
 }

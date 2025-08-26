@@ -1,6 +1,11 @@
 import PageLayout from "../components/layouts/PageLayout";
 
-export default function LocationsPage() {
+export default async function LocationsPage() {
+	const data = await fetch(`${process.env.APP_URL}/api/locations`);
+	const locations = await data.json();
+
+	console.log(locations);
+
 	return (
 		<PageLayout
 			title="Locations"
