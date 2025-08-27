@@ -61,9 +61,18 @@ const CharacterSchema = new Schema<Character>({
 			],
 			default: [],
 		},
-		related_characters: { type: [String], default: [] },
+		related_characters: {
+			type: [Schema.Types.ObjectId],
+			default: [],
+			ref: "Character",
+		},
 		languages: { type: [String], default: [] },
-		location: { type: String, default: "unknown", trim: true },
+		location: {
+			type: Schema.Types.ObjectId,
+			default: "unknown",
+			trim: true,
+			ref: "Location",
+		},
 		profession: {
 			type: String,
 			enum: Object.values(PROFESSION),
