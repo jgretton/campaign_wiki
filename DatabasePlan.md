@@ -81,3 +81,23 @@ interface Additional_notes{
     discovery:string,
 }
 ```
+
+## Locations
+
+```Typescript
+interface Location{
+    name: string,
+    description: string,
+    characters: string[], //Array of character Ids,
+    buildings: Building[]
+    status: "visited" | "heard_about",
+    additional_notes: Additional_Notes[],
+    draft: boolean
+}
+
+interface Building{
+    name: string,
+    description: string,
+    characters?: string[] // if there are notable characters
+}
+```
