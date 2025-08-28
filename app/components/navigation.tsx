@@ -59,10 +59,4 @@ export default function Navigation() {
 				</div>
 			</div>
 		</nav>
-	);
-}
-
-interface Link {
-	name: string;
-	href: string;
-}
+	); } interface Link { name: string; href: string; }
