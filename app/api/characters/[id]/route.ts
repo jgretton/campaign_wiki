@@ -11,28 +11,33 @@ import { notFound } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-	request: NextRequest,
-	{ params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-	const paramId = (await params).id;
-	const isValidId = Types.ObjectId.isValid(paramId);
-	// if (!isValidId) return notFound();
-	let id;
-	try {
-		id = new Types.ObjectId(`${paramId}`);
-	} catch (err) {
-		return NextResponse.json({
-			error: err instanceof Error ? err.message : "fucked",
-		});
-	}
-	await connectDB();
+  const paramId = await params.id;
+  const isValidId = Types.ObjectId.isValid(paramId);
+  if (!isValidId) { console.log('This is an invalid id'); return NextResponse.json({ error: "Not Found" }, { status: 404 }) }
 
-	try {
-		const character = await Character.findById(id);
-		return NextResponse.json(character);
-	} catch (err) {
-		return NextResponse.json({
-			error: err instanceof Error ? err.message : "An unknown error occured",
-		});
-	}
+  // check if view=dm
+  const view = request.nextUrl.searchParams.get("view");
+  await connectDB();
+
+  try {
+    let character;
+    if (view === "dm") {
+      character = await Character.findById(paramId);
+
+    } else {
+      character = await Character.findById(paramId, "public").where({ draft: false }).populate('public.related_characters', "public.name").populate('public.location')
+
+    }
+    if (!character) {
+      console.log("This character does not exists"); return NextResponse.json({ error: "Not Found" }, { status: 404 })
+    }
+    return NextResponse.json(character);
+  } catch (err) {
+    return NextResponse.json({
+      error: err instanceof Error ? err.message : "An unknown error occured",
+    });
+  }
 }
