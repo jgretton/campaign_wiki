@@ -20,10 +20,13 @@ export default async function SingleCharacterPage({
   return (
     <PageLayout title="Character name" description="Character description">
       <div className="grid gap-4">
-        {character.public.name
-        }
+        {character.public.name}
 
-        {character.public.related_characters.map((char: { public: { name: string }, _id: string }) => {
+        {character.public.location && (
+          <div>Location: {character.public.location.name}</div>
+        )}
+
+        {character.public.related_characters?.map((char: { public: { name: string }, _id: string }) => {
           console.log('this is the map chat', char)
           return (
             <Link href={`/characters/${char._id}`}>Link to {char.public.name}</Link>

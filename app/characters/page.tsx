@@ -10,12 +10,14 @@ interface CharactersPageProps {
 export default async function CharactersPage({
   searchParams,
 }: CharactersPageProps) {
-  const view = searchParams.view;
+  const view = (await searchParams).view;
   const data = await fetch(
     `${process.env.APP_URL}/api/characters?view=${view}`
   );
   const characters = await data.json();
+  if (characters.error) { console.log(characters.error); throw Error("Error: ", characters.error.message); }
 
+  console.log('This is the character info,', characters)
   return (
     <PageLayout
       title="Characters"
@@ -30,7 +32,7 @@ export default async function CharactersPage({
                 {char?.public?.name}
               </span>
               <span className="text-gray-500">{char.public?.status}</span>
-              <span className="text-gray-500">{char.public?.location}</span>
+              {/* <span className="text-gray-500">{char.public?.location}</span> */}
               <Link href={`/characters/${char._id}`} className="hover:underline"> View Character </Link>
 
             </div>
