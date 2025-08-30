@@ -6,6 +6,7 @@
 
 import connectDB from "@/app/lib/mongodb";
 import Character from "@/app/models/Character";
+import Location from "@/app/models/Location";
 import { Types } from "mongoose";
 import { notFound } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
@@ -14,9 +15,9 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const paramId = await params.id;
+  const paramId = (await params).id;
   const isValidId = Types.ObjectId.isValid(paramId);
-  if (!isValidId) { console.log('This is an invalid id'); return NextResponse.json({ error: "Not Found" }, { status: 404 }) }
+  if (!isValidId) { return NextResponse.json({ error: "Not Found" }, { status: 404 }) }
 
   // check if view=dm
   const view = request.nextUrl.searchParams.get("view");
@@ -25,14 +26,14 @@ export async function GET(
   try {
     let character;
     if (view === "dm") {
-      character = await Character.findById(paramId);
+      character = await Character.findById(paramId).populate('public.location').populate('public.related_characters', "public.name");
 
     } else {
-      character = await Character.findById(paramId, "public").where({ draft: false }).populate('public.related_characters', "public.name").populate('public.location')
+      character = await Character.findById(paramId, "public").where({ draft: false }).populate('public.related_characters', "public.name").populate('public.location');
 
     }
     if (!character) {
-      console.log("This character does not exists"); return NextResponse.json({ error: "Not Found" }, { status: 404 })
+      return NextResponse.json({ error: "Not Found" }, { status: 404 })
     }
     return NextResponse.json(character);
   } catch (err) {
